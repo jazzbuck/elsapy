@@ -25,9 +25,10 @@ class ElsSearch():
         """Initializes a search object with a query and target index."""
         self.query = query
         self.index = index
+        self.num_records = 200
         self._cursor_supported = (index in self._cursored_indexes)
         self._uri = self._base_url + self.index + '?query=' + url_encode(
-                self.query)
+                self.query) + '&count=' + str(self.num_records)
         self.results_df = pd.DataFrame()
 
     # properties
