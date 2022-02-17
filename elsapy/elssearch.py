@@ -29,6 +29,8 @@ class ElsSearch():
         self._cursor_supported = (index in self._cursored_indexes)
         self._uri = self._base_url + self.index + '?query=' + url_encode(
                 self.query) + '&count=' + str(self.num_records)
+        if self._cursor_supported:
+            self._uri = self._uri + "&cursor=*"
         self.results_df = pd.DataFrame()
 
     # properties
