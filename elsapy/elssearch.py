@@ -96,7 +96,6 @@ class ElsSearch():
             all results for the search, up to a maximum of 5,000."""
         ## TODO: add exception handling
         api_response = els_client.exec_request(self._uri)
-        print(self._uri)
         self._tot_num_res = int(api_response['search-results']['opensearch:totalResults'])
         self._results = api_response['search-results']['entry']
         if get_all is True:
@@ -104,7 +103,6 @@ class ElsSearch():
                 for e in api_response['search-results']['link']:
                     if e['@ref'] == 'next':
                         next_url = e['@href']
-                        print(next_url)
                 api_response = els_client.exec_request(next_url)
                 self._results += api_response['search-results']['entry']
         with open('dump.json', 'w') as f:
